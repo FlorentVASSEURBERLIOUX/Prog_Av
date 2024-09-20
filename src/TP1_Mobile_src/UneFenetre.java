@@ -8,15 +8,22 @@ class UneFenetre extends JFrame
     
     public UneFenetre()
     {
-	JFrame frame = new JFrame("UneFenetre");
+        super("Mobile");
+        Container conteneur =getContentPane();
+        conteneur.add(sonMobile);
+        Thread thread = new Thread(sonMobile);
+        thread.start();
+
+	    JFrame frame = new JFrame("UneFenetre");
         frame.setSize(LARG, HAUT);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-	// TODO 
-	// ajouter sonMobile a la fenetre
-	// creer une thread laThread avec sonMobile
-	// afficher la fenetre
-	// lancer laThread 
+
+        // TODO
+        // ajouter sonMobile a la fenetre
+        // creer une thread laThread avec sonMobile
+        // afficher la fenetre
+        // lancer laThread
     }
 }
