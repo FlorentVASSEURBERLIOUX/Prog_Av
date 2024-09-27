@@ -4,21 +4,20 @@ import javax.swing.*;
 class UneFenetre extends JFrame 
 {
     UnMobile sonMobile;
-    private final int LARG=400, HAUT=250;
+    private final int LARG=800, HAUT=400;
     
     public UneFenetre()
     {
-        super("Mobile");
-        Container conteneur =getContentPane();
-        conteneur.add(sonMobile);
-        Thread thread = new Thread(sonMobile);
-        thread.start();
-
 	    JFrame frame = new JFrame("UneFenetre");
         frame.setSize(LARG, HAUT);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
+        sonMobile = new UnMobile(LARG, HAUT);
+        frame.add(sonMobile);
+        Thread thread = new Thread(sonMobile);
+        thread.start();
 
         // TODO
         // ajouter sonMobile a la fenetre
