@@ -1,28 +1,35 @@
 import java.awt.*;
 import javax.swing.*;
 
-class UneFenetre extends JFrame 
-{
+class UneFenetre extends JFrame {
     UnMobile sonMobile;
-    private final int LARG=800, HAUT=400;
-    
-    public UneFenetre()
-    {
-	    JFrame frame = new JFrame("UneFenetre");
+    private final int LARG = 1500, HAUT = 1000;
+
+    public UneFenetre() {
+        JFrame frame = new JFrame("UneFenetre");
         frame.setSize(LARG, HAUT);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+
+        JButton button = new JButton("Pause");
+        frame.add(button, BorderLayout.SOUTH);
 
         sonMobile = new UnMobile(LARG, HAUT);
         frame.add(sonMobile);
+
         Thread thread = new Thread(sonMobile);
         thread.start();
 
-        // TODO
-        // ajouter sonMobile a la fenetre
-        // creer une thread laThread avec sonMobile
-        // afficher la fenetre
-        // lancer laThread
+        button.addActionListener(e -> {
+            if (button.getText().equals("Pause")) {
+                button.setText("Resume");
+                sonMobile.suspend();
+            } else {
+                button.setText("Pause");
+                sonMobile.resume();
+            }
+        });
+
+        frame.setVisible(true);
     }
 }
