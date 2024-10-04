@@ -1,11 +1,11 @@
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 class UneFenetre extends JFrame {
-    UnMobile sonMobile;
+    UnMobile mobile;
     private final int LARG = 1500, HAUT = 1000;
-
-    public UneFenetre() {
+    public UneFenetre(int nombre) {
         JFrame frame = new JFrame("UneFenetre");
         frame.setSize(LARG, HAUT);
         frame.setLocationRelativeTo(null);
@@ -14,19 +14,22 @@ class UneFenetre extends JFrame {
         JButton button = new JButton("Pause");
         frame.add(button, BorderLayout.SOUTH);
 
-        sonMobile = new UnMobile(LARG, HAUT);
-        frame.add(sonMobile);
+        Container leConteneur = getContentPane();
+        leConteneur.setLayout (new GridLayout(nombre,1));
+        for (int i=0; i<nombre; i++) {
+            mobile = new UnMobile(LARG, HAUT/nombre);
+            leConteneur.add(mobile);
 
-        Thread thread = new Thread(sonMobile);
-        thread.start();
+            Thread thread = new Thread(mobile);
+            thread.start();
+        }
+        frame.add(leConteneur);
+
 
         button.addActionListener(e -> {
             if (button.getText().equals("Pause")) {
                 button.setText("Resume");
-                sonMobile.suspend();
-            } else {
-                button.setText("Pause");
-                sonMobile.resume();
+                mobile.suspend();
             }
         });
 

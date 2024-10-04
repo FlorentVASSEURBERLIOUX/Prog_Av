@@ -3,8 +3,8 @@ import javax.swing.*;
 
 class UnMobile extends JPanel implements Runnable {
 	int saLargeur, saHauteur, sonDebDessin;
-	final int sonPas = 10, sonTemps = 5, sonCote = 40;
-	private volatile int paused = 0;
+	final int sonPas = 10, sonTemps = (int) (Math.random()*50), sonCote = 40;
+	private static boolean paused = false;
 
 	UnMobile(int telleLargeur, int telleHauteur) {
 		super();
@@ -17,11 +17,10 @@ class UnMobile extends JPanel implements Runnable {
 		while (true) {
 			Thread th = new Thread(this);
 			for (sonDebDessin = 0; sonDebDessin + sonCote < saLargeur - sonPas; sonDebDessin += sonPas) {
-				if (paused == 1){
+				if (paused){
 					th.suspend();
-				} else if (paused == 2) {
-					th.resume();
 				}
+
 				repaint();
 				try {
 					Thread.sleep(sonTemps);
@@ -31,10 +30,8 @@ class UnMobile extends JPanel implements Runnable {
 			}
 
 			for (sonDebDessin = saLargeur - sonCote; sonDebDessin > 0; sonDebDessin -= sonPas) {
-				if (paused == 1){
+				if (paused){
 					th.suspend();
-				} else if (paused == 2) {
-					th.resume();
 				}
 
 				repaint();
@@ -48,12 +45,9 @@ class UnMobile extends JPanel implements Runnable {
 	}
 
 	public void suspend() {
-		paused = 1;
+		paused = true;
 	}
 
-	public void resume() {
-		paused = 2;
-	}
 
 	public void paintComponent(Graphics telCG) {
 		super.paintComponent(telCG);
