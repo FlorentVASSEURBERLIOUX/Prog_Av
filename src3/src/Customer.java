@@ -10,7 +10,7 @@ class Customer implements Runnable {
         try {
             for (int i = 1; i <= 10; i++) {
                 bal.retirer();
-                Thread.sleep((int) (Math.random() * 1000));
+                Thread.sleep((int) (Math.random() * 1000) + 1000);
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
