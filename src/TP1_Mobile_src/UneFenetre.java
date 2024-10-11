@@ -1,11 +1,12 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
 import javax.swing.*;
 
 class UneFenetre extends JFrame {
     UnMobile mobile;
-    private final int LARG = 1500, HAUT = 1000;
-    public UneFenetre(int nombre) {
+    private final int LARG = 1000, HAUT = 1000;
+    public UneFenetre(int nombre, int value) {
         JFrame frame = new JFrame("UneFenetre");
         frame.setSize(LARG, HAUT);
         frame.setLocationRelativeTo(null);
@@ -16,8 +17,9 @@ class UneFenetre extends JFrame {
 
         Container leConteneur = getContentPane();
         leConteneur.setLayout (new GridLayout(nombre,1));
+        SemaphoreGen semaphore = new SemaphoreGen(value);
         for (int i=0; i<nombre; i++) {
-            mobile = new UnMobile(LARG, HAUT/nombre);
+            mobile = new UnMobile(LARG, HAUT/nombre,semaphore);
             leConteneur.add(mobile);
 
             Thread thread = new Thread(mobile);

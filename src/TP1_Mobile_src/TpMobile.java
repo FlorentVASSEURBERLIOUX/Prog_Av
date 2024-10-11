@@ -6,7 +6,7 @@ public class TpMobile
 {
     public static void main(String[] telsArgs) 
     {
-	new UneFenetre(100);
+	new UneFenetre(50,20);
  	
     }
 }
