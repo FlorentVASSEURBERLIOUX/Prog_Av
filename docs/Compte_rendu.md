@@ -28,7 +28,7 @@ Lors de l'initialisation du Thread, la commande `start()` a aussi été utilisé
  - `start()` : Executer le Thread.
  - `sleep()` : Mettre en pause le Thread pour une durée prédéterminer.
  - `wait()` : Mettre en pause le Thread (nécessite `notifyAll()` pour le relancé).
- - `notifyAll()` : Relance un Thread mis en pause par `wait()`
+ - `notifyAll()` : Relance un Thread mis en pause par `wait()`.
 
 
 ## 2. Tentative d'utilisation de suspend() et resume()
@@ -47,13 +47,39 @@ En préparration de la suite du TP, plusieurs mobiles avec des vitesses variable
 Une boucle a donc été ajouté pour générés plusieurs mobiles et les ajoutés, un à un, à la fenêtre et au Thread.
 
 
-## 3. Sémaphores et vérrous
+## 3. Sémaphores et zone critique
 
 ### Ordre des lettres
 
 Afin de s'entraîner à la maîtrise des sémaphores avant de les implémenter sur notre TP principal, un autre TP à été créer.
 Il se trouve dans la séction SRC2 du GitHub.
 
+L'objectif de ce TP était de gérer l'ordre d'execution d'un groupe de Thread executant des `sout()` dont chaque lettre est écrite une à une et séparer par des instruction `sleep()`.
+Le but du TP est donc de placcé des verrous pour forcer les Threads à écrire les `sout()` en entier avant d'en commencer un autre. Il faut réguler les zones critiques.
 
+Afin de résoudre ce problème de séction critique, on instancie un Sémaphore pour tous les Threads.
+Lorsque un Thread s'exécute, il diminue la valeur initiale du Sémaphore et de ce fait empêche l'exécution des autres Threads.
+A la fin de l'execution d'un Thread, il notifie le Sémaphore en réaugmentant la valeur initial de ce dernier. Ainsi, un nouveau Thread, jusque là en attente, est exécuté.
 
+```
+public class Main {
+    public static void main(String[] args) {
+
+        SemaphoreBinaireP sem = new SemaphoreBinaireP(1);
+
+        Affichage TA = new Affichage("AAAA\n",sem);
+        TA.start();
+
+        Affichage TB = new Affichage("BBBBB\n",sem);
+        TB.start();
+
+        Affichage TC = new Affichage("CCCCCC\n",sem);
+        TC.start();
+
+        Affichage TD = new Affichage("DDDDDDD\n",sem);
+        TD.start();
+    }
+}
+```
+__Code de la classe Main__
 ### Zones d'arrêt des mobiles
