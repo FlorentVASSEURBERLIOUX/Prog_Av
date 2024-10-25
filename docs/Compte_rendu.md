@@ -13,6 +13,22 @@ Ce rapport expliquera aussi les choix effectuer dans les TP.
 
 ---
 
+## Prémices
+
+Nous avons travaillé sur plusieurs posts différents de l'IUT de Vélizy.
+De ce fait, nous avons eu l'occasion de travaillé sur plusieurs architecture matérielles différentes.
+
+Le matériel le plus récent sur lequel nous avons travaillé es celui présent en G24.
+Il est constitué de 32 Go de RAM et d'un prcesseur de 8 coeurs.
+D'autre ordinatreurs de cette même salle vont jusqu'à 64 Go de RAM.
+
+Les coeurs du pprocesseur sont un élément essentiel qui permet l'execution de tâches.
+L'exécution des tâches est le point centrale du contenu de ce compte rendu.
+En effet, les Threads, Sémaphores et Moniteurs qui sont décrit dans ce rapport sont des moyens de gérer l'ordre d'exécution des tâches de la machine.
+
+L'objectif des TP effectuées lors des séance de Programmation Avancée est d'acquérir des compétence et connaissances en programmation distribués et partéagés.
+C'est au travers de ces concepts de gestion d'exécution des tâches que ces principes seront abordés.
+
 ## 1. Utilisation basique des Threads
 
 Dans le TP 1, l'objectif était de créer des carrés mobiles se déplaçant de gauche à droite puis de droite à gauche dans une fenêtre.
@@ -74,7 +90,7 @@ Afin de résoudre ce problème de séction critique, on instancie un Sémaphore 
 Lorsque un Thread s'exécute, il diminue la valeur initiale du Sémaphore et de ce fait empêche l'exécution des autres Threads.
 A la fin de l'execution d'un Thread, il notifie le Sémaphore en réaugmentant la valeur initial de ce dernier. Ainsi, un nouveau Thread, jusque là en attente, est exécuté.
 
-```
+```java
 public class Main {
     public static void main(String[] args) {
 
@@ -107,7 +123,7 @@ Le constructeur de la classe mobile a donc été modifié pour prendre en argume
 
 Pour plus de clareté, une couleur spécifique a été attribué aux mobiles présents dans la zone critique.
 
-```
+```java
 semaphore.syncWait();
 
     for (sonDebDessin = saLargeur / 3; sonDebDessin < saLargeur / 3 * 2; sonDebDessin += sonPas) {
@@ -150,7 +166,7 @@ De ce fait, le Producteur livre une lettre dans la BAL et le Consommateur réccu
 
 La mise en attente des Consommateurs et Prtoducteurs s'effectuent en uitilisant un Thread, on se sert alors de ``wait()`` et ``notifyAll()``
 
-```
+```java
 public synchronized String retirer() throws InterruptedException {
     if (!available){
         wait();
@@ -172,7 +188,7 @@ Cette version utilise un tableau de 5 threads pour les Producteurs et 5 threads 
 
 La BlockingQueue gère la synchronisation, il n'est donc pas necessaire d'utiliser les verrous ou les blocs synchronized pour gérer la section critique.
 
-```
+```java
 public class BisBAL {
     private BlockingQueue<Lettre> queue = new ArrayBlockingQueue<>(20);
 
