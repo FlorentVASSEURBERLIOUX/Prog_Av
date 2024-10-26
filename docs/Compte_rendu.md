@@ -216,3 +216,11 @@ Un moniteur est un mécanisme de synchronisation qui permet l’exclusion mutuel
 Le principe clé d'un moniteur est qu'à un instant donné, un seul processus peut être actif dans le moniteur, et les autres doivent attendre leur tour.
 
 ---
+
+### Outils utilisés
+
+Ces TP ont été réalisés avec IntelliJ, et gérer via GitBash et GitHub.
+Le rapport ci-dessus a été partiellement corrigé de ses fautes avec l'extension LanguageTool.
+Les parties Cours du rapport ont été en partie isolées par ChatGPT en se basant sur le PDF "CM 2 - Programmation en mémoire partagée - les thread en javaFichier".
+
+---
